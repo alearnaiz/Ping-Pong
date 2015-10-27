@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Ping Pong</title>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    </head>
+    <body>
+        <form action="/Ping-Pong/tournaments" id="form" method="post">
+            Name: <input type="text" name="name" id="name"/>
+            Time (format xx:xx): <input type="time" name="time" id="time"/>
+            Date: <input type="text" name="date" id="date"/>
+            <input type="submit" value="create"/>
+        </form>
+    </body>
+</html>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#date").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+
+        $("#form").on("submit", function(event) {
+            var regexTime = /^[0-2]\d:[0-6]\d$/;
+            var regexDate = /^\d{4}-[0-1]\d-[0-3]\d$/;
+
+            var name = $("#name").val();
+            var time = $("#time").val();
+            var date = $("#date").val();
+
+            if (!name || time.search(regexTime) === -1 || date.search(regexDate) === -1) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>

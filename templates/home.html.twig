@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Ping Pong</title>
+    </head>
+    <body>
+        <a href="/Ping-Pong/logout">logout</a>
+        <a href="/Ping-Pong/create-tournament">create tournament</a>
+        {% for tournament in tournaments %}
+            <div>
+                <p id="{{ tournament.id }}">{{ tournament.name }} {{ tournament.date }}</p>
+                {% if (tournament.registered)  %}
+                    <input type="button" value="Deregister" id="deregister{{ tournament.id }}"/>
+                {% else %}
+                    <input type="button" value="Register" id="register{{ tournament.id }}"/>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </body>
+</html>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        {% for tournament in tournaments %}
+            $("#{{ tournament.id }}").on('click', function() {
+                alert("Llamada a /tournaments/{{ tournament.id }}");
+            });
+
+            $("#deregister{{ tournament.id }}").on('click', function() {
+                $.ajax({
+                    type: "delete",
+                    url: "/Ping-Pong/tournaments/{{ tournament.id }}"
+                });
+            });
+
+            $("#register{{ tournament.id }}").on('click', function() {
+                $.post("/Ping-Pong/tournaments/{{ tournament.id }}", function() {
+                });
+            });
+        {% endfor %}
+    });
+</script>
