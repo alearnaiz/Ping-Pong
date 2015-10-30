@@ -1,11 +1,27 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Ping Pong</title>
+        <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
     </head>
     <body>
-        <form action="/Ping-Pong/login" method="post">
-            Name: <input type="text" name="name"/>
-            <input type="submit" value="Login">
-        </form>
+        <div class="container-fluid">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1>Ping-Pong</h1>
+                </div>
+                <div class="panel-body">
+                    <form action="/Ping-Pong/login" method="post">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" style="max-width: 500px" id="name" name="name"
+                                   placeholder="Name">
+                        </div>
+                        <button type="submit" class="btn btn-success">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

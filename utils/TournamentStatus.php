@@ -8,5 +8,6 @@
  */
 class TournamentStatus
 {
-
+  const OPEN_STATUS = "OPEN";
+  const CLOSED_STATUS = "CLOSED";
 }

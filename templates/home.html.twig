@@ -1,42 +1,72 @@
 <html>
     <head>
-        <title>Ping Pong</title>
+        <title>Upcoming tournaments</title>
+        <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
     </head>
     <body>
-        <a href="/Ping-Pong/logout">logout</a>
-        <a href="/Ping-Pong/create-tournament">create tournament</a>
-        {% for tournament in tournaments %}
-            <div>
-                <p id="{{ tournament.id }}">{{ tournament.name }} {{ tournament.date }}</p>
-                {% if (tournament.registered)  %}
-                    <input type="button" value="Deregister" id="deregister{{ tournament.id }}"/>
-                {% else %}
-                    <input type="button" value="Register" id="register{{ tournament.id }}"/>
-                {% endif %}
+        <div class="container-fluid">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title text-center">Upcoming tournaments</div>
+                    <div class="text-right">
+                        <a href="/Ping-Pong/logout" type="button" class="btn btn-info left">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-right">
+                        <a href="/Ping-Pong/create-tournament" type="button" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+                    </div>
+                    <br/>
+                    <ul class="list-group">
+                        {% for tournament in tournaments %}
+                            <li class="list-group-item">
+                                {% if (tournament.num_people > 0) %}
+                                    <a href="/Ping-Pong/participants/{{ tournament.id }}" class="badge">
+                                        {{ tournament.num_people }}
+                                    </a>
+                                {% endif %}
+                                {{ tournament.name }}, {{ tournament.date }}
+                                {% if (tournament.status == "OPEN") %}
+                                    <div class="text-right" style="margin-top: 10px;">
+                                        <span class="label label-success">Open</span>
+                                    </div>
+                                    <div>
+                                        {% if (tournament.registered)  %}
+                                            <form action="/Ping-Pong/tournaments/{{ tournament.id }}/delete"
+                                                  method="post">
+                                                <input type="submit" class="btn btn-danger btn-sm"
+                                                       value="Deregister"/>
+                                            </form>
+                                        {% else %}
+                                            <form action="/Ping-Pong/tournaments/{{ tournament.id }}" method="post">
+                                                <input type="submit" class="btn btn-success btn-sm" value="Register"/>
+                                            </form>
+
+                                        {% endif %}
+
+                                        {% if (tournament.promoter_id == user_id) %}
+                                            <input type="button" class="btn btn-danger btn-sm" value="Close tournament"
+                                                   id="close{{ tournament.id }}"/>
+                                        {% endif %}
+                                    </div>
+                                {% else  %}
+                                    <div class="text-right">
+                                        <span class="label label-danger">Closed</span>
+                                    </div>>
+                                {% endif %}
+
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
             </div>
-        {% endfor %}
+        </div>
     </body>
 </html>
-
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        {% for tournament in tournaments %}
-            $("#{{ tournament.id }}").on('click', function() {
-                alert("Llamada a /tournaments/{{ tournament.id }}");
-            });
-
-            $("#deregister{{ tournament.id }}").on('click', function() {
-                $.ajax({
-                    type: "delete",
-                    url: "/Ping-Pong/tournaments/{{ tournament.id }}"
-                });
-            });
-
-            $("#register{{ tournament.id }}").on('click', function() {
-                $.post("/Ping-Pong/tournaments/{{ tournament.id }}", function() {
-                });
-            });
-        {% endfor %}
-    });
-</script>

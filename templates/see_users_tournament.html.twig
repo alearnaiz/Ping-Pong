@@ -1,9 +1,13 @@
 <html>
     <head>
-        <title>Ping Pong</title>
+        <title>Participants</title>
     </head>
     <body>
+    Participants
     <ul>
+        Total: {{ num_people }}
+        <br>
+        Promoter: {{ promoter.name }}
         {% for user in users %}
             <li>{{ user.name }}</li>
         {% endfor %}
