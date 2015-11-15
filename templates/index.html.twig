@@ -1,27 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Ping Pong</title>
-        <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-    </head>
-    <body>
-        <div class="container-fluid">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h1>Ping-Pong</h1>
-                </div>
-                <div class="panel-body">
-                    <form action="/Ping-Pong/login" method="post">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" style="max-width: 500px" id="name" name="name"
-                                   placeholder="Name">
-                        </div>
-                        <button type="submit" class="btn btn-success">Login</button>
-                    </form>
-                </div>
+{% extends "base.html.twig" %}
+{% block title %}Ping Pong{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title text-center">Ping-Pong</div>
+            </div>
+            <div class="panel-body">
+                <form id="form" action="/Ping-Pong/login" method="post">
+                    <div id="dname" class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name"
+                               placeholder="Name">
+                    </div>
+                    <button type="submit" class="btn btn-success">Login</button>
+                </form>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#form").on("submit", function(event) {
+                var name = $("#name").val();
+                if (!name) {
+                    $("#dname").addClass("has-error");
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+{% endblock %}

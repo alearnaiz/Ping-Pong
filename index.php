@@ -53,6 +53,8 @@ $app->get('/home', Filter::isRegisteredUser($app), function() use($app) {
     foreach ($tournaments as $index => $tournament) {
         $tournaments[$index]['registered'] = Service::isUserRegisteredInTournament($tournament['id'], $user_id);
         $tournaments[$index]['num_people'] = Service::countUsersByTournamentId($tournament['id']);
+        $tournaments[$index]['date'] = Helper::getDateFormat($tournament['date']);
+        $tournaments[$index]['time'] = Helper::getTimeFormat($tournament['date']);
     }
     $app->render('home.html.twig', ['tournaments' => $tournaments, 'user_id' => $user_id]);
 })
@@ -94,8 +96,16 @@ $app->get('/participants/:id', Filter::isRegisteredUser($app), function($tournam
     $users = Service::getUsersByTournamentId($tournament_id);
     $num_people = Service::countUsersByTournamentId($tournament_id);
     $promoter = Service::getPromoterByTournamentId($tournament_id);
-    $app->render('see_users_tournament.html.twig', ['users' => $users, 'num_people' => $num_people, 'promoter' => $promoter]);
+    $tournament = Service::getTournamentByTournamentId($tournament_id);
+    $tournament['date'] = Helper::getDateFormat($tournament['date']);
+    $tournament['time'] = Helper::getTimeFormat($tournament['date']);
+    $app->render('see_users_tournament.html.twig', ['users' => $users, 'num_people' => $num_people, 'promoter' => $promoter, 'tournament' => $tournament]);
 })
 ->name('participants');
+
+$app->post('/tournaments/:id/close', Filter::isRegisteredUser($app), function($tournament_id) use($app) {
+    Service::updateTournamentStatus($tournament_id, TournamentStatus::CLOSED_STATUS);
+    $app->redirectTo('home');
+});
 
 $app->run();

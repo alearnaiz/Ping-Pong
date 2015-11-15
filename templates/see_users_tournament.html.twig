@@ -1,16 +1,36 @@
-<html>
-    <head>
-        <title>Participants</title>
-    </head>
-    <body>
-    Participants
-    <ul>
-        Total: {{ num_people }}
-        <br>
-        Promoter: {{ promoter.name }}
-        {% for user in users %}
-            <li>{{ user.name }}</li>
-        {% endfor %}
-    </ul>
-    </body>
-</html>
+{% extends "base.html.twig" %}
+{% block title %}{{ tournament.name }}{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <span>{{ tournament.name }}</span>
+                    <br>
+                    <small>{{ tournament.date }} {{ tournament.time }}</small>
+                </div>
+                <div class="text-right">
+                    <a href="/Ping-Pong/logout" type="button" class="btn btn-info">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <h4>
+                    <span class="label label-info">Total: {{ num_people }}</span>
+                    <span class="label label-warning">Promoter: {{ promoter.name }}</span>
+                    {% if (tournament.status == 'OPEN') %}
+                        <span class="label label-success">Open</span>
+                    {% else %}
+                        <span class="label label-danger">Closed</span>
+                    {% endif %}
+                </h4>
+                <ul class="list-group" style="margin-top: 20px;">
+                    {% for user in users %}
+                        <li class="list-group-item">{{ user.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

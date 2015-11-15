@@ -14,4 +14,13 @@ class Helper
         return $date . ' ' . $time;
     }
 
+    public static function getDateFormat($dateTime)
+    {
+        return date('d/m/Y', strtotime($dateTime));
+    }
+
+    public static function getTimeFormat($dateTime)
+    {
+       return date('H:i', strtotime($dateTime));
+    }
 }

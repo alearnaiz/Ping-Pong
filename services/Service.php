@@ -96,7 +96,7 @@ class Service
     public static function updateTournamentStatus($tournament_id, $status)
     {
         $conn = Database::connect();
-        $stmt = $conn->prepare('UPDATE FROM tournament SET status = ? WHERE tournament_id = ?');
+        $stmt = $conn->prepare('UPDATE tournament SET status = ? WHERE id = ?');
         $stmt->bindParam(1, $status, PDO::PARAM_STR);
         $stmt->bindParam(2, $tournament_id, PDO::PARAM_INT);
         return $stmt->execute();
@@ -107,6 +107,15 @@ class Service
         $conn = Database::connect();
         $stmt = $conn->prepare('SELECT user.* FROM user INNER JOIN tournament ON user.id = tournament.promoter_id
           WHERE tournament.id = ?');
+        $stmt->bindParam(1, $tournament_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function getTournamentByTournamentId($tournament_id)
+    {
+        $conn = Database::connect();
+        $stmt = $conn->prepare('SELECT * FROM tournament WHERE tournament.id = ?');
         $stmt->bindParam(1, $tournament_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
