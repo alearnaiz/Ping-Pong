@@ -27,10 +27,36 @@ class Service
         return $conn->lastInsertId();
     }
 
-    public static function getActiveTournaments()
+    public static function getMyTournaments($user_id)
+    {
+        $conn = Database::connect();
+        $stmt = $conn->prepare("SELECT tournament.* FROM tournament_user INNER JOIN tournament ON tournament.id = tournament_user.tournament_id WHERE tournament_user.user_id = ? ORDER BY date ASC");
+        $stmt->bindParam(1, $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function getUpcomingTournaments()
     {
         $conn = Database::connect();
         $stmt = $conn->prepare("SELECT * FROM tournament WHERE date > NOW() ORDER BY date ASC");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function getTournamentsByStatus($status)
+    {
+        $conn = Database::connect();
+        $stmt = $conn->prepare("SELECT * FROM tournament WHERE status = ? AND date > NOW() ORDER BY date ASC");
+        $stmt->bindParam(1, $status, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function getTournaments()
+    {
+        $conn = Database::connect();
+        $stmt = $conn->prepare("SELECT * FROM tournament ORDER BY date ASC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

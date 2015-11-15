@@ -1,18 +1,14 @@
-{% extends "base.html.twig" %}
+{% extends "base_home.html.twig" %}
 {% block title %}{{ tournament.name }}{% endblock %}
 {% block body %}
-    <div class="container-fluid">
+    {{ parent() }}
+    <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="panel-title text-center">
                     <span>{{ tournament.name }}</span>
                     <br>
                     <small>{{ tournament.date }} {{ tournament.time }}</small>
-                </div>
-                <div class="text-right">
-                    <a href="/Ping-Pong/logout" type="button" class="btn btn-info">
-                        <span class="glyphicon glyphicon-log-out"></span>
-                    </a>
                 </div>
             </div>
             <div class="panel-body">

@@ -1,22 +1,19 @@
 {% extends "base.html.twig" %}
 {% block title %}Ping Pong{% endblock %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/Ping-Pong/css/login.css">
+{% endblock %}
 {% block body %}
-    <div class="container-fluid">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <div class="panel-title text-center">Ping-Pong</div>
+    <div class="container">
+        <form class="form-signin" id="form" action="/Ping-Pong/login" method="post">
+            <h2 class="form-signin-heading text-center">Ping Pong</h2>
+            <div id="dname" class="form-group">
+                <label class="sr-only" for="name">Name</label>
+                <input type="text" autofocus="" placeholder="Name" class="form-control" name="name" id="name">
             </div>
-            <div class="panel-body">
-                <form id="form" action="/Ping-Pong/login" method="post">
-                    <div id="dname" class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name"
-                               placeholder="Name">
-                    </div>
-                    <button type="submit" class="btn btn-success">Login</button>
-                </form>
-            </div>
-        </div>
+            <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+        </form>
     </div>
 {% endblock %}
 {% block javascript %}

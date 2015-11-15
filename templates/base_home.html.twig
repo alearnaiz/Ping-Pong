@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/Ping-Pong/my-tournaments" class="navbar-brand">Ping Pong</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li {% if (page == 'my-tournaments') %} class="active" {% endif %}><a href="/Ping-Pong/my-tournaments">My tournaments</a></li>
+                    <li {% if (page == 'upcoming') %} class="active" {% endif %}><a href="/Ping-Pong/upcoming-tournaments">Upcoming tournaments</a></li>
+                    <li {% if (page == 'open') %} class="active" {% endif %}><a href="/Ping-Pong/open-tournaments">Open tournaments</a></li>
+                    <li {% if (page == 'all') %} class="active" {% endif %}><a href="/Ping-Pong/all-tournaments">All tournaments</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/Ping-Pong/logout">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
