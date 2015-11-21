@@ -1,0 +1,44 @@
+{% extends "base_home.html.twig" %}
+{% block title %}{{ tournament.name }}{% endblock %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/Ping-Pong/css/jquery.bracket.min.css">
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <span>{{ tournament.name }}</span>
+                    <br>
+                    <small>{{ tournament.date }} {{ tournament.time }}</small>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="bracket"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript" src="/Ping-Pong/js/jquery.bracket.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var minimalData = {
+                teams : [
+                    {% for round in rounds %}
+                        [ "{{ round[0] }}", "{{ round[1] }}" ],
+                    {% endfor %}
+                ],
+                results : null
+            };
+
+            $("#bracket").bracket({
+                skipConsolationRound: true,
+                init: minimalData
+            });
+        });
+    </script>
+{% endblock %}

@@ -9,18 +9,22 @@
 class Helper
 {
 
-    public static function getDateTime($time, $date)
+    public static function getDateFormat($date_time)
     {
-        return $date . ' ' . $time;
+        return date('d/m/Y', strtotime($date_time));
     }
 
-    public static function getDateFormat($dateTime)
+    public static function getTimeFormat($date_time)
     {
-        return date('d/m/Y', strtotime($dateTime));
+       return date('H:i', strtotime($date_time));
     }
 
-    public static function getTimeFormat($dateTime)
+    public static function isPowerOfTwo($number)
     {
-       return date('H:i', strtotime($dateTime));
+        while (($number % 2 == 0) && $number > 1) {
+            $number = $number /2;
+        }
+
+        return $number == 1;
     }
 }

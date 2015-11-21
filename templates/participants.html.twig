@@ -15,7 +15,7 @@
                 <h4>
                     <span class="label label-info">Total: {{ num_people }}</span>
                     <span class="label label-warning">Promoter: {{ promoter.name }}</span>
-                    {% if (tournament.status == 'OPEN') %}
+                    {% if tournament.status == 'OPEN' %}
                         <span class="label label-success">Open</span>
                     {% else %}
                         <span class="label label-danger">Closed</span>

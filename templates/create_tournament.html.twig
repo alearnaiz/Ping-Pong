@@ -2,7 +2,7 @@
 {% block title %}Create tournament{% endblock %}
 {% block css %}
     {{ parent() }}
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css">
+    <link rel="stylesheet" href="/Ping-Pong/css/bootstrap-datetimepicker.min.css" />
 {% endblock %}
 {% block body %}
     {{ parent() }}
@@ -17,13 +17,15 @@
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Name"/>
                     </div>
-                    <div id="dtime" class="form-group">
-                        <label for="time">Time (format xx:xx)</label>
-                        <input type="text" class="form-control" id="time" name="time" placeholder="Time"/>
-                    </div>
-                    <div id="ddate" class="form-group">
-                        <label for="date">Date</label>
-                        <input type="text" class="form-control" id="date" name="date" placeholder="Date"/>
+                    <div id="ddatetime" class="form-group">
+                        <label for="datetime">Date and time</label>
+                        <div class='input-group date' id='datetimepicker'>
+                            <input type='text' class="form-control" id="datetime" name="datetime" placeholder="Date and time"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar">
+                                </span>
+                            </span>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-success">Create</button>
                 </form>
@@ -33,20 +35,23 @@
 {% endblock %}
 {% block javascript %}
     {{ parent() }}
-    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/Ping-Pong/js/moment.min.js"></script>
+    <script type="text/javascript" src="/Ping-Pong/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/Ping-Pong/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $("#date").datepicker({
-                dateFormat: "yy-mm-dd"
+        $(function() {
+
+            $('#datetimepicker').datetimepicker({
+                sideBySide: true,
+                format: 'YYYY-MM-DD HH:mm',
+                focusOnShow: true,
+                allowInputToggle: true
             });
 
             $("#form").on("submit", function(event) {
-                var regexTime = /^[0-2]\d:[0-6]\d$/;
-                var regexDate = /^\d{4}-[0-1]\d-[0-3]\d$/;
 
                 var name = $("#name").val();
-                var time = $("#time").val();
-                var date = $("#date").val();
+                var dateTime = $('#datetimepicker').data().date;
 
                 var error = false;
                 if (!name) {
@@ -56,18 +61,11 @@
                     $("#dname").removeClass("has-error");
                 }
 
-                if (time.search(regexTime) === -1) {
-                    $("#dtime").addClass("has-error");
+                if (!dateTime) {
+                    $("#ddatetime").addClass("has-error");
                     error = true;
                 } else {
-                    $("#dtime").removeClass("has-error");
-                }
-
-                if (date.search(regexDate) === -1) {
-                    $("#ddate").addClass("has-error");
-                    error = true;
-                } else {
-                    $("#ddate").removeClass("has-error");
+                    $("#ddatetime").removeClass("has-error");
                 }
 
                 if (error) {

@@ -30,7 +30,7 @@ class Service
     public static function getMyTournaments($user_id)
     {
         $conn = Database::connect();
-        $stmt = $conn->prepare("SELECT tournament.* FROM tournament_user INNER JOIN tournament ON tournament.id = tournament_user.tournament_id WHERE tournament_user.user_id = ? ORDER BY date ASC");
+        $stmt = $conn->prepare("SELECT tournament.* FROM tournament_user INNER JOIN tournament ON tournament.id = tournament_user.tournament_id WHERE tournament_user.user_id = ? ORDER BY date_time ASC");
         $stmt->bindParam(1, $user_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -39,7 +39,7 @@ class Service
     public static function getUpcomingTournaments()
     {
         $conn = Database::connect();
-        $stmt = $conn->prepare("SELECT * FROM tournament WHERE date > NOW() ORDER BY date ASC");
+        $stmt = $conn->prepare("SELECT * FROM tournament WHERE date_time > NOW() ORDER BY date_time ASC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -47,7 +47,7 @@ class Service
     public static function getTournamentsByStatus($status)
     {
         $conn = Database::connect();
-        $stmt = $conn->prepare("SELECT * FROM tournament WHERE status = ? AND date > NOW() ORDER BY date ASC");
+        $stmt = $conn->prepare("SELECT * FROM tournament WHERE status = ? AND date_time > NOW() ORDER BY date_time ASC");
         $stmt->bindParam(1, $status, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -56,18 +56,18 @@ class Service
     public static function getTournaments()
     {
         $conn = Database::connect();
-        $stmt = $conn->prepare("SELECT * FROM tournament ORDER BY date ASC");
+        $stmt = $conn->prepare("SELECT * FROM tournament ORDER BY date_time ASC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function createTournament($name, $promoter_id, $date, $status)
+    public static function createTournament($name, $promoter_id, $date_time, $status)
     {
         $conn = Database::connect();
-        $stmt = $conn->prepare('INSERT INTO tournament (name, promoter_id, date, status) VALUES (?, ?, ?, ?)');
+        $stmt = $conn->prepare('INSERT INTO tournament (name, promoter_id, date_time, status) VALUES (?, ?, ?, ?)');
         $stmt->bindParam(1, $name, PDO::PARAM_STR);
         $stmt->bindParam(2, $promoter_id, PDO::PARAM_INT);
-        $stmt->bindParam(3, $date, PDO::PARAM_STR);
+        $stmt->bindParam(3, $date_time, PDO::PARAM_STR);
         $stmt->bindParam(4, $status, PDO::PARAM_STR);
         $stmt->execute();
         return $conn->lastInsertId();
@@ -145,5 +145,33 @@ class Service
         $stmt->bindParam(1, $tournament_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function updatePosition($position, $tournament_id, $user_id)
+    {
+        $conn = Database::connect();
+        $stmt = $conn->prepare('UPDATE tournament_user SET position = ? WHERE tournament_id = ? AND user_id = ?');
+        $stmt->bindParam(1, $position, PDO::PARAM_INT);
+        $stmt->bindParam(2, $tournament_id, PDO::PARAM_INT);
+        $stmt->bindParam(3, $user_id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public static function getUsersByTournamentIdOrderByRandom($tournament_id)
+    {
+        $conn = Database::connect();
+        $stmt = $conn->prepare('SELECT * FROM user INNER JOIN tournament_user ON user.id = tournament_user.user_id WHERE tournament_user.tournament_id = ? ORDER BY RAND()');
+        $stmt->bindParam(1, $tournament_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function getUsersByTournamentIdOrderByPosition($tournament_id)
+    {
+        $conn = Database::connect();
+        $stmt = $conn->prepare('SELECT * FROM user INNER JOIN tournament_user ON user.id = tournament_user.user_id WHERE tournament_user.tournament_id = ? ORDER BY position ASC');
+        $stmt->bindParam(1, $tournament_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
