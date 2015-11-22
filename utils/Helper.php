@@ -28,7 +28,6 @@ class Helper
         while (($number % 2 == 0) && $number > 1) {
             $number = $number /2;
         }
-
         return $number == 1;
     }
 }
