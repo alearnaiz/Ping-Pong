@@ -8,7 +8,6 @@
 
 class Service
 {
-
     public static function getUserByName($name)
     {
         $conn = Database::connect();

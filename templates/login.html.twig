@@ -18,15 +18,5 @@
 {% endblock %}
 {% block javascript %}
     {{ parent() }}
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#form").on("submit", function(event) {
-                var name = $("#name").val();
-                if (!name) {
-                    $("#dname").addClass("has-error");
-                    event.preventDefault();
-                }
-            });
-        });
-    </script>
+    <script type="text/javascript" src="/Ping-Pong/js/login.js"></script>
 {% endblock %}

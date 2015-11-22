@@ -38,40 +38,5 @@
     <script type="text/javascript" src="/Ping-Pong/js/moment.min.js"></script>
     <script type="text/javascript" src="/Ping-Pong/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/Ping-Pong/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript">
-        $(function() {
-
-            $('#datetimepicker').datetimepicker({
-                sideBySide: true,
-                format: 'YYYY-MM-DD HH:mm',
-                focusOnShow: true,
-                allowInputToggle: true
-            });
-
-            $("#form").on("submit", function(event) {
-
-                var name = $("#name").val();
-                var dateTime = $('#datetimepicker').data().date;
-
-                var error = false;
-                if (!name) {
-                    $("#dname").addClass("has-error");
-                    error = true;
-                } else {
-                    $("#dname").removeClass("has-error");
-                }
-
-                if (!dateTime) {
-                    $("#ddatetime").addClass("has-error");
-                    error = true;
-                } else {
-                    $("#ddatetime").removeClass("has-error");
-                }
-
-                if (error) {
-                    event.preventDefault();
-                }
-            });
-        });
-    </script>
+    <script type="text/javascript" src="/Ping-Pong/js/create-tournament.js"></script>
 {% endblock %}

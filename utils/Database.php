@@ -19,5 +19,4 @@ class DataBase
         }
         return self::$connection;
     }
-
 }

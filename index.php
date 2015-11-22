@@ -14,7 +14,6 @@ require 'utils/Helper.php';
 require 'utils/Filter.php';
 require 'utils/TournamentStatus.php';
 
-
 $app = new \Slim\Slim(array(
     'view' => new \Slim\Views\Twig()
 ));
@@ -142,7 +141,7 @@ $app->post('/tournaments', Filter::isRegisteredUser($app), function() use($app) 
     $datetime = $app->request->post('datetime');
     $status = TournamentStatus::OPEN_STATUS;
     $promoter_id = $_SESSION['id'];
-    $tournament_id = Service::createTournament($name, $promoter_id, $datetime, $status);
+    $tournament_id = Service::createTournament($name, $promoter_id, Helper::getDateTimeFormat($datetime), $status);
     Service::registerUserInTournament($tournament_id, $promoter_id);
     $app->redirectTo('my-tournaments');
 });
@@ -176,7 +175,6 @@ $app->post('/tournaments/:id/close', Filter::isRegisteredUser($app), function($t
     foreach ($users as $index => $user) {
         Service::updatePosition($index+1, $tournament_id, $user['id']);
     }
-
     $app->redirectTo('rounds', ['id' => $tournament_id]);
 });
 
@@ -206,7 +204,6 @@ $app->get('/rounds/:id', Filter::isRegisteredUser($app), function($tournament_id
             }
         }
     }
-
     $app->render('rounds.html.twig', ['rounds' => $rounds, 'tournament' => $tournament]);
 })
 ->name('rounds');

@@ -8,7 +8,6 @@
  */
 class Helper
 {
-
     public static function getDateFormat($date_time)
     {
         return date('d/m/Y', strtotime($date_time));
@@ -17,6 +16,11 @@ class Helper
     public static function getTimeFormat($date_time)
     {
        return date('H:i', strtotime($date_time));
+    }
+
+    public static function getDateTimeFormat($date_time)
+    {
+        return date('Y-m-d H:i', strtotime(str_replace('/', '-', $date_time)));
     }
 
     public static function isPowerOfTwo($number)
