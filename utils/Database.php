@@ -12,7 +12,8 @@ class DataBase
         DB_USER = 'DB_USER',
         DB_PWD = 'DB_PWD',
         DB_NAME = 'DB_NAME',
-        DB_HOST = 'DB_HOST';
+        DB_HOST = 'DB_HOST',
+        DB_PORT = 'DB_PORT';
 
 
     private static $connection = null;
@@ -24,7 +25,9 @@ class DataBase
             $db_user = getenv(self::DB_USER);
             $db_pwd = getenv(self::DB_PWD);
             $db_name = getenv(self::DB_NAME);
-            self::$connection = new PDO("mysql:host={$db_host};dbname={$db_name};charset=utf8", $db_user, $db_pwd);
+            $db_port = getenv(self::DB_PORT);
+            self::$connection = new PDO("mysql:host={$db_host};port={$db_port};dbname={$db_name};charset=utf8",
+              $db_user, $db_pwd);
         }
         return self::$connection;
     }
