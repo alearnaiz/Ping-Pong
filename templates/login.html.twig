@@ -2,11 +2,11 @@
 {% block title %}Ping Pong{% endblock %}
 {% block css %}
     {{ parent() }}
-    <link rel="stylesheet" href="/Ping-Pong/css/login.css">
+    <link rel="stylesheet" href="/css/login.css">
 {% endblock %}
 {% block body %}
     <div class="container">
-        <form class="form-signin" id="form" action="/Ping-Pong/login" method="post">
+        <form class="form-signin" id="form" action="/login" method="post">
             <h2 class="form-signin-heading text-center">Ping Pong</h2>
             <div id="dname" class="form-group">
                 <label class="sr-only" for="name">Name</label>
@@ -18,5 +18,5 @@
 {% endblock %}
 {% block javascript %}
     {{ parent() }}
-    <script type="text/javascript" src="/Ping-Pong/js/login.js"></script>
+    <script type="text/javascript" src="/js/login.js"></script>
 {% endblock %}

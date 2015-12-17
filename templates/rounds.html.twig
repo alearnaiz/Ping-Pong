@@ -2,7 +2,7 @@
 {% block title %}{{ tournament.name }}{% endblock %}
 {% block css %}
     {{ parent() }}
-    <link rel="stylesheet" href="/Ping-Pong/css/jquery.bracket.min.css">
+    <link rel="stylesheet" href="/css/jquery.bracket.min.css">
 {% endblock %}
 {% block body %}
     {{ parent() }}
@@ -23,7 +23,7 @@
 {% endblock %}
 {% block javascript %}
     {{ parent() }}
-    <script type="text/javascript" src="/Ping-Pong/js/jquery.bracket.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.bracket.min.js"></script>
     <script type="text/javascript">
         $(function() {
             var minimalData = {

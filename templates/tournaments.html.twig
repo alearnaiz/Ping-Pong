@@ -9,7 +9,7 @@
             </div>
             <div class="panel-body">
                 <div class="text-right">
-                    <a href="/Ping-Pong/create-tournament" type="button" class="btn btn-success">
+                    <a href="/create-tournament" type="button" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>
                     </a>
                 </div>
@@ -21,7 +21,7 @@
                             {% if tournament.status == "OPEN" %}
                                 <div style="float: right;">
                                     {% if tournament.num_people > 0 %}
-                                        <a href="/Ping-Pong/participants/{{ tournament.id }}" class="btn btn-success btn-xs">
+                                        <a href="/participants/{{ tournament.id }}" class="btn btn-success btn-xs">
                                             Open <span class="badge">{{ tournament.num_people }}</span>
                                         </a>
                                     {% else %}
@@ -30,18 +30,18 @@
                                 </div>
                                 <div>
                                     {% if tournament.registered  %}
-                                        <form action="/Ping-Pong/tournaments/{{ tournament.id }}/delete"
+                                        <form action="/tournaments/{{ tournament.id }}/delete"
                                               method="post">
                                             <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 10px;" value="Deregister"/>
                                         </form>
                                     {% else %}
-                                        <form action="/Ping-Pong/tournaments/{{ tournament.id }}" method="post">
+                                        <form action="/tournaments/{{ tournament.id }}" method="post">
                                             <input type="submit" class="btn btn-success btn-sm" style="margin-top: 10px;" value="Register"/>
                                         </form>
                                     {% endif %}
 
                                     {% if tournament.promoter_id == user_id %}
-                                        <form action="/Ping-Pong/tournaments/{{ tournament.id }}/close" method="post">
+                                        <form action="/tournaments/{{ tournament.id }}/close" method="post">
                                             <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 10px;" value="Close tournament"/>
                                         </form>
                                     {% endif %}
@@ -49,7 +49,7 @@
                             {% else  %}
                                 <div style="float: right;">
                                     {% if tournament.num_people > 0 %}
-                                        <a href="/Ping-Pong/rounds/{{ tournament.id }}" class="btn btn-danger btn-xs">
+                                        <a href="/rounds/{{ tournament.id }}" class="btn btn-danger btn-xs">
                                             Closed <span class="badge">{{ tournament.num_people }}</span>
                                         </a>
                                     {% else %}

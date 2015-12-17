@@ -2,7 +2,7 @@
 {% block title %}Create tournament{% endblock %}
 {% block css %}
     {{ parent() }}
-    <link rel="stylesheet" href="/Ping-Pong/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css" />
 {% endblock %}
 {% block body %}
     {{ parent() }}
@@ -12,7 +12,7 @@
                 <div class="panel-title text-center">Create tournament</div>
             </div>
             <div class="panel-body">
-                <form action="/Ping-Pong/tournaments" id="form" method="post">
+                <form action="/tournaments" id="form" method="post">
                     <div id="dname" class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Name"/>
@@ -35,8 +35,8 @@
 {% endblock %}
 {% block javascript %}
     {{ parent() }}
-    <script type="text/javascript" src="/Ping-Pong/js/moment.min.js"></script>
-    <script type="text/javascript" src="/Ping-Pong/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/Ping-Pong/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript" src="/Ping-Pong/js/create-tournament.js"></script>
+    <script type="text/javascript" src="/js/moment.min.js"></script>
+    <script type="text/javascript" src="/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/js/create-tournament.js"></script>
 {% endblock %}

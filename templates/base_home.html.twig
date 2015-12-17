@@ -3,18 +3,18 @@
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="/Ping-Pong/my-tournaments" class="navbar-brand">Ping Pong</a>
+                <a href="/my-tournaments" class="navbar-brand">Ping Pong</a>
             </div>
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                    <li {% if page is defined and page == 'my-tournaments' %} class="active" {% endif %}><a href="/Ping-Pong/my-tournaments">My tournaments</a></li>
-                    <li {% if page is defined and page == 'upcoming' %} class="active" {% endif %}><a href="/Ping-Pong/upcoming-tournaments">Upcoming tournaments</a></li>
-                    <li {% if page is defined and page == 'open' %} class="active" {% endif %}><a href="/Ping-Pong/open-tournaments">Open tournaments</a></li>
-                    <li {% if page is defined and page == 'all' %} class="active" {% endif %}><a href="/Ping-Pong/all-tournaments">All tournaments</a></li>
+                    <li {% if page is defined and page == 'my-tournaments' %} class="active" {% endif %}><a href="/my-tournaments">My tournaments</a></li>
+                    <li {% if page is defined and page == 'upcoming' %} class="active" {% endif %}><a href="/upcoming-tournaments">Upcoming tournaments</a></li>
+                    <li {% if page is defined and page == 'open' %} class="active" {% endif %}><a href="/open-tournaments">Open tournaments</a></li>
+                    <li {% if page is defined and page == 'all' %} class="active" {% endif %}><a href="/all-tournaments">All tournaments</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/Ping-Pong/logout">
+                        <a href="/logout">
                             <span class="glyphicon glyphicon-log-out"></span>
                         </a>
                     </li>
