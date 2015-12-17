@@ -1,0 +1,15 @@
+web:
+  build: .
+  ports:
+    - "8888:80"
+  links:
+    - db
+
+db:
+  image: mariadb:10.0
+  environment:
+    - "MYSQL_ROOT_PASSWORD=artengo"
+    - "MYSQL_DATABASE=pingpong"
+  volumes:
+    - /opt/pingpong/db:/var/lib/mysql
+
