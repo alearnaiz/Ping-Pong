@@ -8,22 +8,11 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema ping-pong
+-- Table `user`
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `ping-pong` ;
+DROP TABLE IF EXISTS `user` ;
 
--- -----------------------------------------------------
--- Schema ping-pong
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `ping-pong` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-USE `ping-pong` ;
-
--- -----------------------------------------------------
--- Table `ping-pong`.`user`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ping-pong`.`user` ;
-
-CREATE TABLE IF NOT EXISTS `ping-pong`.`user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `name` VARCHAR(255) NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
@@ -32,11 +21,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ping-pong`.`tournament`
+-- Table `tournament`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ping-pong`.`tournament` ;
+DROP TABLE IF EXISTS `tournament` ;
 
-CREATE TABLE IF NOT EXISTS `ping-pong`.`tournament` (
+CREATE TABLE IF NOT EXISTS `tournament` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `promoter_id` INT NOT NULL COMMENT '',
   `name` VARCHAR(255) NOT NULL COMMENT '',
@@ -46,18 +35,18 @@ CREATE TABLE IF NOT EXISTS `ping-pong`.`tournament` (
   INDEX `fk_tournament_user_idx` (`promoter_id` ASC)  COMMENT '',
   CONSTRAINT `fk_tournament_user`
     FOREIGN KEY (`promoter_id`)
-    REFERENCES `ping-pong`.`user` (`id`)
+    REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ping-pong`.`tournament_user`
+-- Table `tournament_user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ping-pong`.`tournament_user` ;
+DROP TABLE IF EXISTS `tournament_user` ;
 
-CREATE TABLE IF NOT EXISTS `ping-pong`.`tournament_user` (
+CREATE TABLE IF NOT EXISTS `tournament_user` (
   `tournament_id` INT NOT NULL COMMENT '',
   `user_id` INT NOT NULL COMMENT '',
   `position` INT NULL COMMENT '',
@@ -66,12 +55,12 @@ CREATE TABLE IF NOT EXISTS `ping-pong`.`tournament_user` (
   INDEX `fk_tournament_user_tournament_idx` (`tournament_id` ASC)  COMMENT '',
   CONSTRAINT `fk_tournament_user_tournament`
     FOREIGN KEY (`tournament_id`)
-    REFERENCES `ping-pong`.`tournament` (`id`)
+    REFERENCES `tournament` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tournament_user_user`
     FOREIGN KEY (`user_id`)
-    REFERENCES `ping-pong`.`user` (`id`)
+    REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
